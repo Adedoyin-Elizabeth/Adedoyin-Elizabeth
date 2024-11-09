@@ -41,7 +41,39 @@ This project focuses on analyzing the subscription data for Hulu TV to derive in
 Hulu TV Subscription Database (incubator Hub)
 
 ## Data Analysis
-``` SQL ```
+``` SQL
+Select  region, count(distinct Customerid) as total_customers 
+from [dbo]
+Group by region;
+
+Select top 1 subscriptiontype, count(distinct customerid) as total_customers
+From [dbo]
+Group by subscriptiontype 
+Order by total_customers desc;
+
+Select customer_id
+From [dbo]
+Where datadiff(month, subscriptionstart, subscriptionend) <= 6;
+
+Select avg(datediff(day, subscriptionstart, subscriptionend)) as avg_subscription_duration
+From [dbo]
+
+Select customerid
+From [dbo]
+Where datediff(month, subscriptionstart  subscriptionend) > 12;
+
+Select subscriptiontype,
+Sum(revenue) as total_revenue 
+From [dbo]
+Group by subscriptiontype;
+
+Select top 3 region,
+Count(*) as subscriptionend_count
+From [dbo]
+Where subscriptionend is null
+Group by region
+Order by subscriptionend_count desc
+```
 
 ## Dashboard
 ![Hulu TV](https://github.com/user-attachments/assets/118cf30c-23bb-439e-8cc1-e111e9745d5c)
